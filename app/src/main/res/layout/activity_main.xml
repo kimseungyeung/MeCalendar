@@ -11,6 +11,7 @@
      android:layout_height="0dip"
      android:layout_weight="1"
      android:gravity="center"
+     android:background="@color/colorAccent"
      android:orientation="horizontal">
 <Button
     android:id="@+id/btn_prv"

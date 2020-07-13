@@ -47,7 +47,7 @@ class CalendarAdapter : BaseAdapter {
     override fun getCount(): Int {
       return 42
     }
-    class ViewHolder {
+    class ViewHolder{
         var tv_date:TextView?=null
     }
 
