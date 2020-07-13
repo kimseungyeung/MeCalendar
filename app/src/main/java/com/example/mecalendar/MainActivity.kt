@@ -24,13 +24,23 @@ class MainActivity : AppCompatActivity() {
         month = (calendar.get(Calendar.MONTH)+1)
         tv_month.text=month.toString()
         btn_nxt.setOnClickListener {
-            month++
-            tv_month.text=month.toString()
+            if(month<12) {
+                month++
+                tv_month.text = month.toString()
+            }else{
+                month=1
+                tv_month.text = month.toString()
+            }
         }
         btn_prv.setOnClickListener {
-            month--
-            tv_month.text=month.toString()
+            if(month>1) {
+                month--
+                tv_month.text = month.toString()
+            }else{
+                month=12
+                tv_month.text = month.toString()
+            }
         }
-        listcalendar.adapter=CalendarAdapter(this)
+        listcalendar.adapter=CalendarAdapter(this,listcalendar)
     }
 }

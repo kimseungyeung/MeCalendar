@@ -7,22 +7,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.GridView
 import android.widget.TextView
+import androidx.core.view.get
 import kotlinx.android.synthetic.main.item_calendar.view.*
 
 class CalendarAdapter : BaseAdapter {
     var con:Context?=null
+    var itemheight:Int=0
+    var gv_calendar:GridView?=null
 
-
-
-    constructor(context: Context) : super() {
+    constructor(context: Context,gv:GridView) : super() {
         con=context
+        gv_calendar=gv
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-       var inflater=con!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE)as LayoutInflater
+
+        var inflater=con!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE)as LayoutInflater
         var view=inflater.inflate(R.layout.item_calendar,null)
+        itemheight=gv_calendar!!.height/6
+
+        var param:ViewGroup.LayoutParams?=null
+        if(param==null){
+            param=ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+        param.height=itemheight
         view.tv_date.text=position.toString()
+        view.layoutParams=param
         return view
     }
 
@@ -35,7 +47,7 @@ class CalendarAdapter : BaseAdapter {
     }
 
     override fun getCount(): Int {
-      return 31
+      return 42
     }
     class ViewHolder {
         var tv_date:TextView?=null
