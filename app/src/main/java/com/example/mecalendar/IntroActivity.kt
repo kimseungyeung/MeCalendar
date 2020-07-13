@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
+import kotlin.concurrent.thread
 import kotlin.concurrent.timer
 
 class IntroActivity : AppCompatActivity(){
