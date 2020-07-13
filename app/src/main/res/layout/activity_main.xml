@@ -29,7 +29,7 @@
    android:text="다음"/>
  </LinearLayout>
 <GridView
-    android:id="@+id/listcalendar"
+    android:id="@+id/gv_calendar"
     android:layout_width="match_parent"
     android:layout_height="0dip"
     android:numColumns="7"

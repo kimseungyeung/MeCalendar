@@ -2,8 +2,10 @@ package com.example.mecalendar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_calendar.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -41,6 +43,10 @@ class MainActivity : AppCompatActivity() {
                 tv_month.text = month.toString()
             }
         }
-        listcalendar.adapter=CalendarAdapter(this,listcalendar)
+        gv_calendar.adapter=CalendarAdapter(this,gv_calendar)
+        gv_calendar.setOnItemClickListener { parent, view, position, id ->
+            Toast.makeText(this,view.tv_date.text,
+        Toast.LENGTH_SHORT).show()  }
+
     }
 }
