@@ -1,15 +1,13 @@
-package com.example.mecalendar
+package com.example.mecalendar.Adapter
 
 import android.content.Context
-import android.os.Parcel
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.GridView
 import android.widget.TextView
-import androidx.core.view.get
+import com.example.mecalendar.R
 import kotlinx.android.synthetic.main.item_calendar.view.*
 
 class CalendarAdapter : BaseAdapter {
