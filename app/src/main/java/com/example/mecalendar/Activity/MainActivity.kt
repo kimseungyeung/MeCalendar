@@ -13,6 +13,10 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
     var itemarray:ArrayList<String>?=null
     var month:Int=0
+    var year:Int=0
+    var nmonth:Int=0;
+    var nyear=0;
+    var ndate=0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,15 +29,23 @@ class MainActivity : AppCompatActivity() {
         val d=Date()
         val calendar=Calendar.getInstance()
         month = (calendar.get(Calendar.MONTH)+1)
-        tv_month.text=month.toString()
+        nmonth=month
+        nyear=calendar.get(Calendar.YEAR)
+        year=nyear
+        ndate=calendar.get(Calendar.DATE)
+
+        tv_month.text=year.toString()+"년 "+month.toString()+"월"
         btn_nxt.setOnClickListener {
             if(month<12) {
                 month++
                 tv_month.text = month.toString()
             }else{
                 month=1
-                tv_month.text = month.toString()
+                year++
             }
+            (gv_calendar.adapter as CalendarAdapter).nyear=year
+            (gv_calendar.adapter as CalendarAdapter).nmonth=month
+            tv_month.text=year.toString()+"년 "+month.toString()+"월"
         }
         btn_prv.setOnClickListener {
             if(month>1) {
@@ -41,14 +53,22 @@ class MainActivity : AppCompatActivity() {
                 tv_month.text = month.toString()
             }else{
                 month=12
-                tv_month.text = month.toString()
+                year--
+
             }
+            (gv_calendar.adapter as CalendarAdapter).nyear=year
+            (gv_calendar.adapter as CalendarAdapter).nmonth=month
+            tv_month.text=year.toString()+"년 "+month.toString()+"월"
         }
-        gv_calendar.adapter=
-            CalendarAdapter(this, gv_calendar)
+       var cadapter= CalendarAdapter(this, gv_calendar)
+        cadapter!!.nyear=nyear
+        cadapter!!.nmonth=nmonth
+        cadapter!!.ndate=ndate
+        gv_calendar.adapter=cadapter
         gv_calendar.setOnItemClickListener { parent, view, position, id ->
             Toast.makeText(this,view.tv_date.text,
         Toast.LENGTH_SHORT).show()  }
+
 
     }
 }
