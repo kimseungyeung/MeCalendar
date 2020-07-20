@@ -1,5 +1,6 @@
 package com.example.mecalendar.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -28,37 +29,37 @@ class MainActivity : AppCompatActivity() {
         itemarray= arrayListOf()
         val d=Date()
         val calendar=Calendar.getInstance()
-        month = (calendar.get(Calendar.MONTH)+1)
+        month = (calendar.get(Calendar.MONTH))
         nmonth=month
         nyear=calendar.get(Calendar.YEAR)
         year=nyear
         ndate=calendar.get(Calendar.DATE)
 
-        tv_month.text=year.toString()+"년 "+month.toString()+"월"
+        tv_month.text=year.toString()+"년 "+(month+1).toString()+"월"
         btn_nxt.setOnClickListener {
-            if(month<12) {
+            if(month<11) {
                 month++
-                tv_month.text = month.toString()
+
             }else{
-                month=1
+                month=0
                 year++
             }
             (gv_calendar.adapter as CalendarAdapter).nyear=year
             (gv_calendar.adapter as CalendarAdapter).nmonth=month
-            tv_month.text=year.toString()+"년 "+month.toString()+"월"
+            tv_month.text=year.toString()+"년 "+(month+1).toString()+"월"
         }
         btn_prv.setOnClickListener {
-            if(month>1) {
+            if(month>0) {
                 month--
-                tv_month.text = month.toString()
             }else{
-                month=12
+                month=11
                 year--
 
             }
             (gv_calendar.adapter as CalendarAdapter).nyear=year
             (gv_calendar.adapter as CalendarAdapter).nmonth=month
-            tv_month.text=year.toString()+"년 "+month.toString()+"월"
+            tv_month.text=year.toString()+"년 "+(month+1)
+                .toString()+"월"
         }
        var cadapter= CalendarAdapter(this, gv_calendar)
         cadapter!!.nyear=nyear
@@ -67,7 +68,13 @@ class MainActivity : AppCompatActivity() {
         gv_calendar.adapter=cadapter
         gv_calendar.setOnItemClickListener { parent, view, position, id ->
             Toast.makeText(this,view.tv_date.text,
-        Toast.LENGTH_SHORT).show()  }
+        Toast.LENGTH_SHORT).show()
+            val i  = Intent(this, MemoActivity::class.java)
+            i.putExtra("year",nyear.toString())
+            i.putExtra("month",(nmonth+1).toString())
+            i.putExtra("date",view.tv_date.text)
+            startActivity(i)
+        }
 
 
     }

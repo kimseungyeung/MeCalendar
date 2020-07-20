@@ -20,21 +20,20 @@ class CalendarAdapter : BaseAdapter {
         set(year:Int)
             {calendar!!.set(Calendar.YEAR,year)
             field=year
-
             }
     var nmonth:Int=0
         set(month:Int)
-        {calendar!!.set(Calendar.MONTH,month)
+        {
+            calendar!!.set(Calendar.MONTH,month)
             field=month
             ndate=1
             startdate = calendar!!.get(Calendar.DAY_OF_WEEK)
             enddate= calendar!!.getActualMaximum(Calendar.DATE)
-
-
         }
     var ndate:Int=0
-    set(value:Int) {field=value
-                    calendar!!.set(Calendar.DATE,value)
+    set(value:Int) {
+        field=value
+        calendar!!.set(Calendar.DATE,value)
         notifyDataSetChanged()
         Log.d("start", nyear.toString()+"년 "+nmonth+"월 "+ndate+"일 ")}
     var startdate:Int=0
@@ -64,8 +63,9 @@ class CalendarAdapter : BaseAdapter {
 
 
 
-        if(position+1>=startdate&&position<=enddate) {
-            view.tv_date.text = position.toString()
+        if((position+1)>=startdate&&(position+1-startdate)<(enddate)) {
+
+            view.tv_date.text = ((position+2)-startdate).toString()
         }else{
             view.tv_date.text=""
             view.tv_memo.text=""

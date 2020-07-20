@@ -37,36 +37,43 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/sunday"/>
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/monday"/>
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/tuesday"/>
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/wendsday"/>
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/thursday"/>
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/friday"/>
         <TextView
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/saterday"/>
     </LinearLayout>
 <GridView

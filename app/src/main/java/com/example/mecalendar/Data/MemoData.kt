@@ -1,5 +1,6 @@
 package com.example.mecalendar.Data
 
+import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -7,11 +8,13 @@ class MemoData : Parcelable {
     var time: String? = null
 
     var memo: String? = null
+    var image:Bitmap?=null
     constructor()
     constructor(source: Parcel) : this()
-    constructor(time: String?, memo: String?) {
+    constructor(time: String?, memo: String?,im:Bitmap?) {
         this.time = time
         this.memo = memo
+        this.image=im
     }
 
 

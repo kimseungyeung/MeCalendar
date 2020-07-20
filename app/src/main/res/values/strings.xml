@@ -7,5 +7,6 @@
     <string name="thursday">목</string>
     <string name="friday">금</string>
     <string name="saterday">토</string>
-
+    <string name="save">저장</string>
+    <string name="add">추가</string>
 </resources>
