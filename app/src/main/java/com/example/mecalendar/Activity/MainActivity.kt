@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     var nmonth:Int=0;
     var nyear=0;
     var ndate=0;
-    var test=1;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             i.putExtra("month",(nmonth+1).toString())
             i.putExtra("date",view.tv_date.text)
             startActivity(i)
-            //ㅇㅇㅇㅇ
+
         }
 
 
