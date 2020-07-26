@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     var nmonth:Int=0;
     var nyear=0;
     var ndate=0;
+    var test=0;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
