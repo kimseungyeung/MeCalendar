@@ -44,10 +44,14 @@ class MemoActivity : AppCompatActivity(), View.OnClickListener {
         when(v!!.id){
             R.id.btn_add->{
                 val i  = Intent(this, MemoInsertActivity::class.java)
-                startActivity(i)
+                startActivityForResult(i)
             }
 
         }
+    }
+
+    private fun startActivityForResult(i: Intent) {
+
     }
 
 }

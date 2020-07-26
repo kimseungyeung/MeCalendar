@@ -1,16 +1,19 @@
 package com.example.mecalendar.Activity
 
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.mecalendar.Adapter.CalendarAdapter
+import com.example.mecalendar.Db.DataBaseHelper
 import com.example.mecalendar.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_calendar.view.*
 import java.util.*
 import kotlin.collections.ArrayList
-
+var DbOpenHelper:DataBaseHelper?=null
+var database:SQLiteDatabase?=null
 class MainActivity : AppCompatActivity() {
     var itemarray:ArrayList<String>?=null
     var month:Int=0
@@ -18,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     var nmonth:Int=0;
     var nyear=0;
     var ndate=0;
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun init(){
+        DbOpenHelper=DataBaseHelper(this)
+       database= DbOpenHelper!!.writableDatabase
         itemarray= arrayListOf()
         val d=Date()
         val calendar=Calendar.getInstance()
