@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
             i.putExtra("month",(nmonth+1).toString())
             i.putExtra("date",view.tv_date.text)
             startActivity(i)
+            //ㅇㅇㅇㅇ
         }
 
 
