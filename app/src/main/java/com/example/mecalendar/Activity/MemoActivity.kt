@@ -51,7 +51,8 @@ class MemoActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun startActivityForResult(i: Intent) {
-
+        (rl_memo.adapter as ListAdapter).memolist= DbOpenHelper!!.select(database,20200726)
+        rl_memo.adapter!!.notifyDataSetChanged()
     }
 
 }
