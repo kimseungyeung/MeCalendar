@@ -1,10 +1,14 @@
 package com.example.mecalendar.Activity
 
+import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.work.*
 import com.example.mecalendar.Adapter.CalendarAdapter
 import com.example.mecalendar.Db.DataBaseHelper
 import com.example.mecalendar.R
@@ -32,8 +36,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun init(){
-        DbOpenHelper=DataBaseHelper(this)
-       database= DbOpenHelper!!.writableDatabase
+        val df= OneTimeWorkRequest.Builder(DbWorker::class.java).build()
+        val workManager=WorkManager.getInstance(this).enqueue(df)
         itemarray= arrayListOf()
         val d=Date()
         val calendar=Calendar.getInstance()
@@ -85,6 +89,20 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+
+    }
+   class DbWorker(context: Context,workerParameters: WorkerParameters):Worker(context,workerParameters){
+        var result=true
+        override fun doWork(): Result {
+            if(result) {
+                Log.d("test","workmanager")
+                DbOpenHelper=DataBaseHelper(applicationContext)
+                database= DbOpenHelper!!.writableDatabase
+                return Result.success()
+            }else {
+                return Result.failure()
+            }
+        }
 
     }
 }

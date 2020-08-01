@@ -1,5 +1,7 @@
 package com.example.mecalendar.Activity
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.*
 import com.example.mecalendar.Adapter.ListAdapter
 import com.example.mecalendar.Data.MemoData
 import com.example.mecalendar.R
@@ -27,32 +30,38 @@ class MemoActivity : AppCompatActivity(), View.OnClickListener {
     }
     fun init(){
         memolist= arrayListOf()
-        for(i in 1..10){
-            var time=1311+i
-            //var dd=resources.getDrawable(R.drawable.ic_launcher_foreground)
-            var ddd=BitmapFactory.decodeResource(this.resources,R.drawable.ic_launcher_foreground)
-            var d=MemoData(time.toString(),"오후일과", ddd)
-            memolist!!.add(d)
-        }
         var adapter=ListAdapter(memolist)
         rl_memo.adapter=adapter
         rl_memo.layoutManager=LinearLayoutManager(this)
         btn_add.setOnClickListener(this)
+        var work= OneTimeWorkRequest.Builder(DbselectWorker::class.java).build()
+        var start=WorkManager.getInstance(this).enqueue(work)
     }
-
+    fun setadapter(){
+        rl_memo.adapter=ListAdapter(memolist)
+        (rl_memo.adapter as ListAdapter).notifyDataSetChanged()
+    }
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btn_add->{
                 val i  = Intent(this, MemoInsertActivity::class.java)
-                startActivityForResult(i)
+                startActivity(i)
             }
 
         }
+
+
     }
 
-    private fun startActivityForResult(i: Intent) {
-        (rl_memo.adapter as ListAdapter).memolist= DbOpenHelper!!.select(database,20200726)
-        rl_memo.adapter!!.notifyDataSetChanged()
+    inner class DbselectWorker(context:Context,workerp:WorkerParameters):Worker(context,workerp){
+
+        override fun doWork(): Result {
+
+            memolist= DbOpenHelper!!.select(database,20200801)
+            setadapter()
+            return Result.success()
+        }
     }
+
 
 }

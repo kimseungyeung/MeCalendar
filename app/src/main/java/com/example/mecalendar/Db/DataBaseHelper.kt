@@ -21,7 +21,7 @@ class DataBaseHelper : SQLiteOpenHelper {
     val COL_TIME:String="time"
     val COL_IMAGE="image"
     val COL_MEMO="memo"
-    val DATABASE_CREATE="create table "+TABLE_NAME+"("+COL_ID+"integer primary key autoincrement, " +
+    val DATABASE_CREATE="create table "+TABLE_NAME+"("+COL_ID+" integer primary key autoincrement, " +
             ""+COL_DATE+" integer, "+
             ""+COL_TIME+" integer, "+
             ""+COL_IMAGE+" blob, "+
@@ -34,13 +34,11 @@ class DataBaseHelper : SQLiteOpenHelper {
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        TODO("Not yet implemented")
         db!!.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME)
         db!!.execSQL(DATABASE_CREATE)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-        TODO("Not yet implemented")
         db!!.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME)
         onCreate(db)
     }
@@ -58,7 +56,7 @@ class DataBaseHelper : SQLiteOpenHelper {
     }
     fun select(db:SQLiteDatabase?,date:Int):ArrayList<MemoData>{
         var mdatalist= arrayListOf<MemoData>()
-        var cursor:Cursor=db!!.rawQuery("SELECT*FROM "+TABLE_NAME+"WHERE date="+date,null)
+        var cursor:Cursor=db!!.rawQuery("SELECT*FROM "+TABLE_NAME+" WHERE date="+date,null)
     while (cursor.moveToNext()){
          var date=cursor.getInt(1)
         var time=cursor.getInt(2)
