@@ -13,7 +13,9 @@ import com.example.mecalendar.Adapter.CalendarAdapter
 import com.example.mecalendar.Db.DataBaseHelper
 import com.example.mecalendar.R
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_calendar.*
 import kotlinx.android.synthetic.main.item_calendar.view.*
+import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 var DbOpenHelper:DataBaseHelper?=null
@@ -81,10 +83,14 @@ class MainActivity : AppCompatActivity() {
         gv_calendar.setOnItemClickListener { parent, view, position, id ->
             Toast.makeText(this,view.tv_date.text,
         Toast.LENGTH_SHORT).show()
+            var numformat=NumberFormat.getIntegerInstance()
+            numformat.minimumIntegerDigits=2
             val i  = Intent(this, MemoActivity::class.java)
             i.putExtra("year",nyear.toString())
-            i.putExtra("month",(nmonth+1).toString())
-            i.putExtra("date",view.tv_date.text)
+            i.putExtra("month",numformat.format(nmonth+1))
+            var tdate=view.tv_date.text.toString().toInt()
+            var df=numformat.format(tdate)
+            i.putExtra("date",df)
             startActivity(i)
 
         }

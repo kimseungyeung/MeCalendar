@@ -15,9 +15,14 @@ import com.example.mecalendar.Adapter.ListAdapter
 import com.example.mecalendar.Data.MemoData
 import com.example.mecalendar.R
 import kotlinx.android.synthetic.main.memo_activity.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MemoActivity : AppCompatActivity(), View.OnClickListener {
     var memolist:ArrayList<MemoData>?=null
+    var tdate:Int?=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     setContentView(R.layout.memo_activity)
@@ -25,6 +30,8 @@ class MemoActivity : AppCompatActivity(), View.OnClickListener {
         val year=i.getStringExtra("year")
         val month=i.getStringExtra("month")
         val date=i.getStringExtra("date")
+
+        tdate=(year+month+date).toInt()
         tv_nowdate.text=year+"년 "+month+"월 "+date+"일 "
         init()
     }
@@ -34,8 +41,10 @@ class MemoActivity : AppCompatActivity(), View.OnClickListener {
         rl_memo.adapter=adapter
         rl_memo.layoutManager=LinearLayoutManager(this)
         btn_add.setOnClickListener(this)
-        var work= OneTimeWorkRequest.Builder(DbselectWorker::class.java).build()
-        var start=WorkManager.getInstance(this).enqueue(work)
+        CoroutineScope(Dispatchers.Main).launch {
+            memolist= DbOpenHelper!!.select(database,tdate!!)
+            setadapter()
+        }
     }
     fun setadapter(){
         rl_memo.adapter=ListAdapter(memolist)
@@ -45,7 +54,7 @@ class MemoActivity : AppCompatActivity(), View.OnClickListener {
         when(v!!.id){
             R.id.btn_add->{
                 val i  = Intent(this, MemoInsertActivity::class.java)
-                startActivity(i)
+                startActivityForResult(i,1)
             }
 
         }
@@ -53,15 +62,14 @@ class MemoActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    inner class DbselectWorker(context:Context,workerp:WorkerParameters):Worker(context,workerp){
-
-        override fun doWork(): Result {
-
-            memolist= DbOpenHelper!!.select(database,20200801)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        CoroutineScope(Dispatchers.Main).launch {
+            memolist= DbOpenHelper!!.select(database,tdate!!)
             setadapter()
-            return Result.success()
         }
     }
+
 
 
 }
