@@ -12,7 +12,7 @@ class IntroActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.intro_activity);
-
+        //ss
         val i  =Intent(this, MainActivity::class.java)
         hh.postDelayed(Runnable {
             startActivity(i)
